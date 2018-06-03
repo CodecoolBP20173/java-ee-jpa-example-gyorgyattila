@@ -4,10 +4,17 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "Class")
 public class Klass {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
+    @OneToMany
     private Set<Student> students = new HashSet<>();
-
+    @Enumerated
+    private CClocation location;
     public Klass() {}
 
     public Klass(String name) {
@@ -30,4 +37,13 @@ public class Klass {
         students.add(student);
     }
 
+    public Klass(String name, Set<Student> students, CClocation location) {
+        this.name = name;
+        this.students = students;
+        this.location = location;
+    }
+
+    public void setLocation(CClocation location) {
+        this.location = location;
+    }
 }

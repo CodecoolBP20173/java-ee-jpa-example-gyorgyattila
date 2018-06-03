@@ -14,16 +14,20 @@ public class Student {
     private long id;
 
     private String name;
-
+    @Column(unique = true,nullable = false)
     private String email;
 
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
+    @Transient
     private long age;
 
     @OneToOne
     private Address address;
+
+    @ElementCollection
+    private List<String>phoneNumbers;
 
     public Student() {
     }
@@ -34,11 +38,13 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
         this.age = (Calendar.getInstance().getTimeInMillis() - dateOfBirth.getTime())
                 / (60L * 60L * 1000L * 24L * 365L);
+        this.phoneNumbers = new ArrayList<>();
     }
 
     public Student(String name, String email, Date dateOfBirth, Address address) {
         this(name, email, dateOfBirth);
         this.address = address;
+
     }
 
     public long getId() {

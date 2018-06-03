@@ -28,11 +28,13 @@ public class JPAExample {
         Address address = new Address("Hungary", "1234", "Budapest", "Macskakő út 5.");
         Student student = new Student("Ödön", "odon@tokodon.hu", birthDate1, address);
         classBp2.addStudent(student);
+        classBp2.setLocation(CClocation.KRAKOW);
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(address);
         em.persist(student);
+        em.persist(classBp2);
         transaction.commit();
         System.out.println("Ödön saved.");
 
